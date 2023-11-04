@@ -15,7 +15,7 @@ Pasos en el servidor
 */
 
 const app = express()
-
+const userRoutes = require('./routes/user')
 
 
 app.use(cors())
@@ -33,6 +33,7 @@ app.use(express.json())
 //Pruebas desde postman
 app.use(express.urlencoded({extended:true}))
 
+app.use(`/${API_VERSION}/users`, userRoutes);
 
 
 

@@ -6,7 +6,7 @@ const SuscritoSchema = mongoose.Schema({
         require: true,
         unique: true
     },
-    telefono: {
+    phone: {
         type: String,
         require: true,
         unique: true

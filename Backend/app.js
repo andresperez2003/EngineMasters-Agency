@@ -1,0 +1,39 @@
+const express = require('express')
+const cors = require('cors');
+
+//app conectar por el puerto local el express
+//especificar los middleware a utilizar
+
+/* 
+Pasos en el servidor
+
+1. Modelo
+2. Controlador
+3. Rutas
+4. App
+5. Pruebas (Postman, RestClient)
+*/
+
+const app = express()
+
+
+
+app.use(cors())
+
+
+
+
+const API_VERSION = 'api/v1'
+
+
+//Pruebas con extesion Rest Client
+app.use(express.json())
+
+
+//Pruebas desde postman
+app.use(express.urlencoded({extended:true}))
+
+
+
+
+module.exports = app;

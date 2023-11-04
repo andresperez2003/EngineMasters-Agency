@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const AdminSchema = mongoose.Schema({
+const UsuarioSchema = mongoose.Schema({
     email: {
         type: String,
         require: true,
@@ -25,6 +25,6 @@ const AdminSchema = mongoose.Schema({
         default: true
     }
 });
-const Admin = mongoose.model("Admin", AdminSchema);
+const Usuario = mongoose.model("Usuario", UsuarioSchema);
 
-module.exports = Admin;
+module.exports = Usuario;

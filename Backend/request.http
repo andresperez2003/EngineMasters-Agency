@@ -1,0 +1,15 @@
+
+###
+GET  http://localhost:3100/api/v1/users/allUsers HTTP/1.1
+
+###
+POST  http://localhost:3100/api/v1/users/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "firstname":"new test2",
+    "lastname":"new test2",
+    "email":"newtest2@test.com",
+    "telefono":"3134902138",
+    "password":"user123"
+}

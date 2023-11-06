@@ -43,13 +43,42 @@ const changeActive = async(req,res)=>{
         console.log(user)        
         res.status(200).json(userEdit)
     } catch (error) {
+        res.status(400).json({message:error.message})
+    }
+}
+
+
+const getUserById = async(req,res)=>{
+    try {
+       const {id} = req.params;
+       const user = await UserModel.findById(id);
+       res.status(200).json(user)
+
+    } catch (error) {
+        res.status(400).json({message:error.message})
+        
+    }
+}
+
+const updateUserById = async(req,res)=>{
+    try {
+        const {id} = req.params;
+        const userDataEdit = req.body;
+        const editUser = await UserModel.findByIdAndUpdate(id,userDataEdit);
+        res.status(200).json(editUser)
+    } catch (error) {
+        res.status(400).json({message:error.message})
         
     }
 }
 
 
+
+
 module.exports={
     getAllUsers,
     createUser,
-    changeActive
+    changeActive,
+    getUserById,
+    updateUserById
 }

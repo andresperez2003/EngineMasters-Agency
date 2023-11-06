@@ -25,6 +25,27 @@ Content-Type: application/json
     "name":"Salome",
     "email":"salome@test.com",
     "phone":"3053336288"
+    "name":"test",
+    "lastname": "test",
+    "email":"test@test.com",
+    "phone": "3124112",
+    "password":"use",
+    "rol": "Admin"
+}
+
+//auth
+
+###
+Post http://localhost:3100/api/v1/auth/signin HTTP/1.1 
+Content-Type: application/json
+
+{
+    "name":"test13",
+    "lastname": "test13",
+    "email":"test13@test.com",
+    "phone": "31223324",
+    "password":"user133",
+    "rol": "Admin"
 }
 
 
@@ -95,3 +116,14 @@ GET  http://localhost:3100/api/v1/users/sendMessage HTTP/1.1
 
 ###
 GET http://localhost:3100/api/v1/products HTTP/1.1
+Post http://localhost:3100/api/v1/auth/login HTTP/1.1 
+Content-Type: application/json
+
+{
+    "email":"test123@test.com",
+    "current_password":"user121233"
+}
+
+
+###
+GET http://localhost:3100/api/v1/auth/6536cdf52969ba0a03f5366f HTTP/1.1

@@ -18,6 +18,8 @@ const app = express()
 const userRoutes = require('./routes/user')
 const productRoutes = require('./routes/producto')
 const suscritosRoutes = require('./routes/suscritos')
+const authRoutes = require('./routes/auth')
+
 
 
 app.use(cors())
@@ -38,6 +40,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(`/${API_VERSION}/users`, userRoutes);
 app.use(`/${API_VERSION}/products`, productRoutes);
 app.use(`/${API_VERSION}/suscritos`, suscritosRoutes);
+app.use(`/${API_VERSION}/auth`,authRoutes);
 
 
 

@@ -16,6 +16,8 @@ Pasos en el servidor
 
 const app = express()
 const userRoutes = require('./routes/user')
+const authRoutes = require('./routes/auth')
+
 
 
 app.use(cors())
@@ -34,6 +36,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 app.use(`/${API_VERSION}/users`, userRoutes);
+app.use(`/${API_VERSION}/auth`,authRoutes);
 
 
 

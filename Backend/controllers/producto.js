@@ -1,7 +1,24 @@
 const ProductModel = require('../models/producto')
 const SuscribeModel = require('../models/suscrito')
+const multer = require('multer');
+const multerConfig = require('../utils/multerConfig')
 
-const getAllProducts = async(req,res)=>{
+const upload = multer(multerConfig).single('imagen')
+
+
+
+
+const fileUpload =async(req,res,next)=>{
+    upload(req,res, function(error){
+        if(error){
+            return next(new Error('Se produjo un error durante la carga de archivos'));
+        }
+        next();
+    })
+}
+
+
+const getAllProducts = async(req,res,next)=>{
     try {
         const allProducts = await ProductModel.find();
         res.status(200).json(allProducts)
@@ -12,10 +29,13 @@ const getAllProducts = async(req,res)=>{
 
 const createProduct = async(req,res) => {
     try {
+        console.log("Entra")
         const productData = req.body
         const newProduct = new ProductModel({...productData})
+        if(req.file && req.file.filename){
+            newProduct.imagen = req.file.filename
+        }
         await newProduct.save();
-        console.log(newProduct)
         res.status(201).json(newProduct)
     } catch (error) {
         res.status(400).json({message:error.message})
@@ -30,6 +50,11 @@ const updateProductById = async (req, res) =>{
         if((productDataEdit.descuento!=producto.descuento && productDataEdit.descuento>producto.descuento && productDataEdit.descuento!=0)){
             console.log("entra")
             changeDiscount(producto)
+        }
+        if(req.file && req.file.filename){
+            newProduct.image = req.file.filename
+        }else{
+            productDataEdit.image = producto.image
         }
         const response= await ProductModel.findByIdAndUpdate(id, productDataEdit)
         res.status(200).json({message: "Actualización exitosa"});
@@ -73,5 +98,6 @@ module.exports={
     createProduct,
     updateProductById,
     deleteProductById,
-    changeDiscount
+    changeDiscount,
+    fileUpload
 }

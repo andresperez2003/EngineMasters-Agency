@@ -31,9 +31,6 @@ export const EngineMasters = () => {
                 </Button>
                 </div>
             </div>
-            <div className='title'>
-                <h1>NUESTROS PRODUCTOS</h1>
-            </div>
         </div>
     )
 }

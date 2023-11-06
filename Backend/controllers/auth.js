@@ -7,7 +7,7 @@ const { config } = require('dotenv');
 //Crear la funcion para el registro - singIn
 
 const signin = async(req, res) =>{
-    const {name, lastname, email, phone, password, rol} = req.body;
+    const {firstname, lastname, email, phone, password, rol} = req.body;
 
     try {
         if(!email){
@@ -21,23 +21,23 @@ const signin = async(req, res) =>{
         const emailLowerCase = email.toLowerCase();
         const salt = await bcrypt.genSalt(10);
         const current_password_hash = await bcrypt.hash(password,salt);
-
+        const allUsers = await userModel.find();
         /* 
         Formas de guardar un uaurio
         -> userModel.create
         -> new usermodel
         */
         const newUser = await userModel.create({
-            name,
+            firstname,
             lastname,
             email:emailLowerCase,
             phone,
             password: current_password_hash,
-            rol
+            rol: (allUsers.length==0)? "Administrador":"Secretariqa"
         })
 
         const userStorage = await newUser.save();
-        res.status(201).json({userStorage});
+        res.status(201).json(userStorage);
 
     
         //Siempre que se crea un objeto, la respuesta debe ser un 201
@@ -56,6 +56,7 @@ const login = async(req,res)=>{
         throw new Error("El email y la contraseña son obligatorias")
     }       
     const emailLowerCase = email.toLowerCase();
+    const userFind = await userModel.find({email:emailLowerCase})
     const userStore = await userModel.findOne({email:emailLowerCase}).exec();
 
     if(!userStore){

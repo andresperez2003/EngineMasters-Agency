@@ -11,6 +11,8 @@ const generateToken = (user)=>{
     const payload ={
         id: user._id,
         email:user.email,
+        active:user.active,
+        rol:user.rol,
         iat: Date.now(),
         exp: parseInt(expirationToken.getTime()/1000)
     }

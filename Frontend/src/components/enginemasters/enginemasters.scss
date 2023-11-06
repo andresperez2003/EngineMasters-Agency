@@ -23,3 +23,29 @@
         text-align: center;
     }
 }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #050520;
+    padding: 20px;
+  }
+  
+  
+  .hamburger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    width: 30px;
+    height: 20px;
+  }
+  
+  .line {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+  }
+.image-nav{
+    width: 160px;
+}

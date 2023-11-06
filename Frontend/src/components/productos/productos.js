@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { images } from '../../assets';
-import { Button } from '@mui/material';
+import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
@@ -10,6 +10,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import "./productos.scss";
 import { useEffect, useState } from 'react'  
+import AddIcon from '@mui/icons-material/Add';
+
+
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -34,6 +38,8 @@ export const Productos = () => {
       setPage(value);
     };
     const [products, setProducts] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
+
 
   const lastIndex = page * 3;
   const firstIndex = lastIndex - 3;
@@ -45,6 +51,11 @@ console.log(currentItems)
 
 
     useEffect(() => {
+
+        const token = localStorage.getItem('token')
+        token ?setIsAdmin(true) : setIsAdmin(false)
+        console.log(token)
+
         fetch(urlProducto, {
             method: 'GET',
             cache: 'no-cache',
@@ -65,9 +76,18 @@ console.log(currentItems)
 
     return (
         <div className='productos-container'>
-                <div className='title'>
-                <h1>NUESTROS PRODUCTOS</h1>
+            {isAdmin ?                 <div className='title' style={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:'0px 10px'}}>
+                <h1 style={{margin:'14px'}}>NUESTROS PRODUCTOS</h1>
+                 <div style={{display:'flex', justifyContent:'center', alignItems:'center', padding:'0px 25px'}}>
+                 <Button style={{maxHeight:'30px', marginLeft:'auto', fontSize:'13px'}} variant="contained" startIcon={<AddIcon />}>Agregar</Button>
+                 </div>
                 </div>
+                :
+                <div className='title' style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                <h1 style={{margin:'14px'}}>NUESTROS PRODUCTOS</h1>
+                </div>
+                }
+
             <div className='productos-list'>
                 {currentItems?.map((producto) => (
                     
@@ -92,7 +112,7 @@ console.log(currentItems)
                         </Typography>
                         </div>
                         <Typography variant="body2" color="text.secondary">
-                            <b style={{color:'green'}}>${producto?.precio * producto?.descuento}</b>
+                            <b style={{color:'green'}}>${producto?.precio-(producto?.precio * producto?.descuento)}</b>
                         </Typography>
                     </div>
 

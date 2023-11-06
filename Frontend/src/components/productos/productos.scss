@@ -1,0 +1,9 @@
+.productos-container{
+    align-content: center;
+    .productos-list{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin: 15px;
+    }
+}

@@ -17,7 +17,7 @@
 .nfs*
 
 
-.config.js
+config.js
 
 ### macOS ###
 # General

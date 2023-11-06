@@ -24,7 +24,7 @@ Content-Type: application/json
 {
     "name":"Salome",
     "email":"salome@test.com",
-    "phone":"3053336288"
+    "phone":"3053336288",
     "name":"test",
     "lastname": "test",
     "email":"test@test.com",
@@ -40,12 +40,11 @@ Post http://localhost:3100/api/v1/auth/signin HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"test13",
-    "lastname": "test13",
-    "email":"test13@test.com",
-    "phone": "31223324",
-    "password":"user133",
-    "rol": "Admin"
+    "firstname":"Andres",
+    "lastname": "Perez",
+    "email":"andresap2017@gmail.com",
+    "phone": "3134902140",
+    "password":"andres123"
 }
 
 
@@ -80,15 +79,15 @@ Content-Type: application/json
 }
 
 ###
-PATCH  http://localhost:3100/api/v1/products/6548494f3989f646c3b070dd HTTP/1.1
+PATCH  http://localhost:3100/api/v1/products/6548495a3989f646c3b070df HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre":"Renault Twingo",
-    "descripcion":"Renault",
+    "nombre":"Aston Martin DBX707",
+    "descripcion":"Eroga 707 CV de potencia y 900 Nm de bestial torque, regulado por una caja automática de nueve velocidades con convertidor de par. Su tracción es permanente a las 4 ruedas. Acelera de 0 a 100 km/h en 3,3 segundos y logra una velocidad tope de 310 km/h.",
     "precio":6000,
     "descuento":0.50,
-    "imagen":"123"
+    "imagen":"/"
 }
 
 
@@ -116,6 +115,9 @@ GET  http://localhost:3100/api/v1/users/sendMessage HTTP/1.1
 
 ###
 GET http://localhost:3100/api/v1/products HTTP/1.1
+
+
+###
 Post http://localhost:3100/api/v1/auth/login HTTP/1.1 
 Content-Type: application/json
 

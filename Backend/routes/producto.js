@@ -5,8 +5,8 @@ const router = express.Router()
 
 
 router.get('/', ProductController.getAllProducts);
-router.post('/new-product', ProductController.createProduct);
-router.patch('/:id', ProductController.updateProductById);
+router.post('/new-product', ProductController.fileUpload,ProductController.createProduct);
+router.patch('/:id', ProductController.fileUpload, ProductController.updateProductById);
 router.delete('/:id', ProductController.deleteProductById);
 router.get('/sendMessage', ProductController.changeDiscount)
 

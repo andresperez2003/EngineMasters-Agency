@@ -23,7 +23,7 @@ const authRoutes = require('./routes/auth')
 
 
 app.use(cors())
-
+app.use(express.static('uploads'))
 
 
 

@@ -6,5 +6,10 @@ const router = express.Router()
 
 router.get('/allUsers', UserController.getAllUsers);
 router.post('/create', UserController.createUser);
+router.patch('/changeActive/:id', UserController.changeActive)
+router.get('/UserbyId/:id', UserController.getUserById)
+router.patch('/editUser/:id', UserController.updateUserById)
+
+
 
 module.exports = router;

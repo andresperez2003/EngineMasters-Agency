@@ -1,4 +1,4 @@
-const suscritoModel = require('../models/suscritos');
+const suscritoModel = require('../models/suscrito');
 
 const getAllSuscritos = async(req,res)=>{
     try {
@@ -26,7 +26,7 @@ const updateSuscritoById = async (req, res) => {
         const { id } = req.params;
         const suscritorDataEdit = req.body;
         console.log(suscritorDataEdit);
-        await userModel.findByIdAndUpdate(id, suscritorDataEdit);
+        await suscritoModel.findByIdAndUpdate(id, suscritorDataEdit);
         res.status(200).json({ message: "Cambio exitoso" });
     } catch (err) {
         res.status(400).json({ message: err.message });

@@ -108,9 +108,11 @@ export const EngineMasters = () => {
             </Link>}
 
           </ListItem>
+          <ListItem button onClick={handleDrawerClose}>
           <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
               <ListItemText primary="Register" />
           </Link>
+          </ListItem>
         </List>
       </Drawer>
 

@@ -38,8 +38,6 @@ const signin = async(req, res) =>{
 
         const userStorage = await newUser.save();
         res.status(201).json(userStorage);
-
-    
         //Siempre que se crea un objeto, la respuesta debe ser un 201
     } catch (err) {
         console.log("error")

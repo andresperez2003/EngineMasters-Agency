@@ -10,12 +10,29 @@ const getAllSuscritos = async(req,res)=>{
 };
 
 const createSuscritor = async(req,res) => {
+    const {name,email,phone} = req.body;
     try {
-        const suscritoData = req.body
-        const newSuscrito = new suscritoModel({...suscritoData})
-        await newSuscrito.save();
-        console.log(newSuscrito)
-        res.status(201).json(newSuscrito)
+        if(!name){
+            res.status(400).jsono({message:"El nombre es requerido"})
+            throw new Error("El nombre es requerido");
+        }
+        if(!email){
+            res.status(400).jsono({message:"El email es requerido"})
+            throw new Error("El email es requerido");
+        }
+        if(!phone){
+            res.status(400).jsono({message:"El numero de telefono es requerido"})
+            throw new Error("El numero de telefono es requerido");
+        }
+        const emailLowerCase = email.toLowerCase();
+        const newSusc = await suscritoModel.create({
+            name,
+            email:emailLowerCase,
+            phone
+        })
+        const suscStorage = await newSusc.save();
+        console.log(newSusc)
+        res.status(201).json(newSusc)
     } catch (error) {
         res.status(400).json({message:error.message})
     }

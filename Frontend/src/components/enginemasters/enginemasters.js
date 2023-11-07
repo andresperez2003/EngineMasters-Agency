@@ -107,10 +107,10 @@ export const EngineMasters = () => {
               <ListItemText primary="Login" />
             </Link>}
 
-
-
-
           </ListItem>
+          <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
+              <ListItemText primary="Register" />
+          </Link>
         </List>
       </Drawer>
 

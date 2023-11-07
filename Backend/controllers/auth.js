@@ -33,7 +33,7 @@ const signin = async(req, res) =>{
             email:emailLowerCase,
             phone,
             password: current_password_hash,
-            rol: (allUsers.length==0)? "Administrador":"Secretariqa"
+            rol: (allUsers.length==0)? "Administrador":"Secretaria"
         })
 
         const userStorage = await newUser.save();

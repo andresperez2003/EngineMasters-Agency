@@ -133,4 +133,4 @@ GET http://localhost:3100/api/v1/auth/6536cdf52969ba0a03f5366f HTTP/1.1
 
 //Eliminar usuarios (test)
 ###
-DELETE http://localhost:3100/api/v1/users/id HTTP/1.1
+DELETE http://localhost:3100/api/v1/users/654a62eac6ec3701420c4f5f

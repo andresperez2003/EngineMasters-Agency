@@ -42,7 +42,7 @@ const signin = async (req, res) => {
         sendEmail(newUser._id, newUser.email)
 
         const userStorage = await newUser.save();
-        res.status(201).json(userStorage);
+        res.status(201).json({message: "OK", userStorage});
         //Siempre que se crea un objeto, la respuesta debe ser un 201
     } catch (err) {
         console.log("error")

@@ -123,7 +123,7 @@ export const EngineMasters = () => {
             </Link>
           </ListItem>
           <div style={{ flexGrow: 1 }}></div>
-          <ListItem>
+          <ListItem button onClick={handleDrawerClose}>
               <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
                 <ListItemText primary="Register" />
               </Link> 
@@ -134,7 +134,6 @@ export const EngineMasters = () => {
             </Link> : <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/login">
               <ListItemText primary="Login" />
             </Link>}
-
           </ListItem>
           
 

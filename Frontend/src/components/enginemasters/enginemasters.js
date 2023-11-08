@@ -132,6 +132,7 @@ export const EngineMasters = () => {
             </Link>}
 
           </ListItem>
+
           <ListItem>
             {setData.rol == "Administrador" ?
               <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
@@ -141,6 +142,7 @@ export const EngineMasters = () => {
           </ListItem>
             
           
+
         </List>
       </Drawer>
 

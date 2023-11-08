@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, Alert,FormControlLabel, FormGroup, Grid, Stack, TextField } from '@mui/material';
+import { Box, Button, Checkbox,Alert,  FormControlLabel, FormGroup, Grid, Stack, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 
 const Suscribirse = () => {
@@ -10,6 +10,22 @@ const Suscribirse = () => {
         politicas: ''
     });
 
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: '#FFF',
+        color: "#000",
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
+    const [isError, setIsError] = useState(false);
+    const [MessageError, setMessageError] = useState('')
+
     const handleChange = (event) => {
         setCreatedSusc(createdSusc => ({ ...createdSusc, [event.target.name]: event.target.value }))
     }
@@ -19,14 +35,13 @@ const Suscribirse = () => {
     }
 
     const alertMsj = () => {
-        return(
-        <Alert severity="error">Error</Alert>
+        return (
+            <Alert severity="error">Error</Alert>
         )
     };
 
     const handleSubmit = () => {
-        if (createdSusc['politicas'] ) {
-            if (createdSusc['name'] != '' && createdSusc['email'] != '' && createdSusc['phone'] != '') {
+        if (createdSusc['politicas']) {
                 const url = 'http://localhost:3100/api/v1/suscritos/new-suscribe';
                 fetch(url, {
                     method: 'POST',
@@ -36,54 +51,62 @@ const Suscribirse = () => {
                     }
                 })
                     .then((response) => response.json())
-                    .then((data) => console.log(data))
+                    .then((data) => {
+                        if (data.message != 'OK') {
+                            setMessageError("Error")
+                            setIsError(true)
+                        } else {
+                            window.location.href = 'http://localhost:3000/'
+                        }
+                        console.log('Suscripcion exitosa:', data);
+                    })
                     .catch((error) => console.log(error));
-            }
-            else {
-                alert('Debe llenar todos los campos');
-            }
         }
-        else {
-            alert('Debe aceptar las politicas de privacidad');
+        else{
+            setMessageError("Debe aceptar las politicas de privacidad")
+            setIsError(true)
         }
     }
 
     return (
-        <div className='formulario'>
-            <Box
-                component="form"
-                sx={{
-                    width: '100%',
-                    '& > :not(style)': { m: 1, width: '100%' }
-                }}
-                noValidate
-                autoComplete="off"
-            >
-                <h1 style={{ textAlign: "center" }}>Suscribirse</h1>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={12} md={12}>
-                        <TextField id="outlined-basic" label="Nombre" variant="outlined" sx={{ m: 1, width: '90%' }} name='name' onChange={handleChange} />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12}>
-                        <TextField id="outlined-basic" label="Email" variant="outlined" sx={{ m: 1, width: '90%' }} name='email' onChange={handleChange} />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12}>
-                        <TextField id="outlined-basic" label="Teléfono" variant="outlined" sx={{ m: 1, width: '90%' }} name='phone' onChange={handleChange} />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12}>
-                        <Checkbox onChange={handlePoliticas} />Autorizo el tratamiento de mis datos personales de acuerdo con los términos establecidos en la <a href="/politicas-privacidad" name='politicas' onChange={handleChange} >POLITICA DE PRIVACIDAD</a>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} >
-                        <Button variant="contained" color="primary" sx={{ m: 1 }} onClick={handleSubmit}>
-                            Registrarme
+        <>
+            {isError ? <Stack sx={{ width: '100%' }} spacing={2}>
+                <Alert variant="filled" severity="error">
+                    {MessageError}</Alert>
+            </Stack> : ''}
+            <Box sx={style}>
+                <h2 id="modal-title" style={{ marginBottom: "40px" }}>Suscribirse</h2>
+                <form>
+                    <div >
+                        <div>
+                            <Grid container spacing={2} display={'flex'}>
+                                <Grid item xs={6} >
+                                    <TextField type='text' label="Nombres" variant="outlined" value={createdSusc.name} name='name' onChange={handleChange} />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField type='text' label="Telefono" variant="outlined" value={createdSusc.phone} name='phone' onChange={handleChange} />
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <TextField type='text' label="Correo" variant="outlined" value={createdSusc.email} name='email' onChange={handleChange} />
+                                </Grid>
+                                <Grid item xs={12} >
+                                    <Checkbox onChange={handlePoliticas} />Autorizo el tratamiento de mis datos personales de acuerdo con los términos establecidos en la <a href="/politicas-privacidad" name='politicas' onChange={handleChange} >POLITICA DE PRIVACIDAD</a>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </div>
+
+                    <div style={{marginTop: "10px"}}>
+                        <Button type='submit' variant="contained" color="primary" onClick={handleSubmit}>
+                            Suscribirse
                         </Button>
                         <Button variant="contained" color="error" sx={{ m: 1 }} href='/'>
-                            Cancelar
-                        </Button>
-                    </Grid>
-                </Grid>
+                                Cancelar
+                            </Button>
+                    </div>
+                </form>
             </Box>
-        </div>
+        </>
     )
 }
 

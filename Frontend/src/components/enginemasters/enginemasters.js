@@ -123,8 +123,12 @@ export const EngineMasters = () => {
             </Link>
           </ListItem>
           <div style={{ flexGrow: 1 }}></div>
+          <ListItem>
+              <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
+                <ListItemText primary="Register" />
+              </Link> 
+          </ListItem>
           <ListItem button onClick={handleDrawerClose}>
-
             {token ? <Link style={{ textDecoration: 'none', color: '#FFF' }} onClick={logout}>
               <ListItemText primary="Logout" />
             </Link> : <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/login">
@@ -132,15 +136,6 @@ export const EngineMasters = () => {
             </Link>}
 
           </ListItem>
-
-          <ListItem>
-            {setData.rol == "Administrador" ?
-              <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
-                <ListItemText primary="Register" />
-              </Link> : false
-            }
-          </ListItem>
-            
           
 
         </List>

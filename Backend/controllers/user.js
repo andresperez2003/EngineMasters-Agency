@@ -50,9 +50,9 @@ const changeActive = async(req,res)=>{
 
 const getUserById = async(req,res)=>{
     try {
-       const {id} = req.params;
-       const user = await UserModel.findById(id);
-       res.status(200).json(user)
+        const {id} = req.params;
+        const user = await UserModel.findById(id);
+        res.status(200).json(user)
 
     } catch (error) {
         res.status(400).json({message:error.message})
@@ -72,7 +72,15 @@ const updateUserById = async(req,res)=>{
     }
 }
 
-
+const deleteUserById = async (req, res) =>{
+    try{
+        const { id } = req.params;
+        const response= await UserModel.findByIdAndDelete(id);
+        res.status(200).json({message: "Usuario eliminado exitosamente"});
+    }catch(err){
+        res.status(400).json({message : err.message});
+    }
+}
 
 
 module.exports={
@@ -80,5 +88,6 @@ module.exports={
     createUser,
     changeActive,
     getUserById,
-    updateUserById
+    updateUserById,
+    deleteUserById
 }

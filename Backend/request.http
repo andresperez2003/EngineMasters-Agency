@@ -22,15 +22,9 @@ POST  http://localhost:3100/api/v1/suscritos/new-suscribe HTTP/1.1
 Content-Type: application/json
 
 {
-    "name":"Salome",
-    "email":"salome@test.com",
-    "phone":"3053336288",
-    "name":"test",
-    "lastname": "test",
-    "email":"test@test.com",
-    "phone": "3124112",
-    "password":"use",
-    "rol": "Admin"
+    "name":"pepe",
+    "email":"test123@gmail.com",
+    "phone":"3134902140"
 }
 
 //auth
@@ -42,9 +36,9 @@ Content-Type: application/json
 {
     "firstname":"Andres",
     "lastname": "Perez",
-    "email":"andresap2017@gmail.com",
-    "phone": "3134902140",
-    "password":"andres123"
+    "email":"julivelo69@gmail.com",
+    "phone": "31349021402",
+    "password":"andres1234"
 }
 
 
@@ -128,6 +122,7 @@ Content-Type: application/json
 
 
 ###
+<<<<<<< HEAD
 GET http://localhost:3100/api/v1/products/ HTTP/1.1
 
 
@@ -140,3 +135,11 @@ Content-Type: application/json
 {
     "imagen":"2_s_M8YCo.jpeg"
 }
+=======
+GET http://localhost:3100/api/v1/auth/6536cdf52969ba0a03f5366f HTTP/1.1
+
+
+//Eliminar usuarios (test)
+###
+DELETE http://localhost:3100/api/v1/users/654a62eac6ec3701420c4f5f
+>>>>>>> 20b5fc942e5146123a2babbd6cc456b5f85b891b

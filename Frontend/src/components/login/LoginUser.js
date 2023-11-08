@@ -89,7 +89,7 @@ const LoginUser = () => {
     <Box sx={style}>
     <h2 id="modal-title" style={{marginBottom:"40px"}}>Login</h2>
     <form>
-      <div>
+      <div >
 
       <div>
       <Grid container spacing={2}>
@@ -108,7 +108,7 @@ const LoginUser = () => {
 
       </div>
     
-      <div style={{ marginTop: '25px' , marginLeft:"150px"}}>
+      <div style={{ marginTop: '25px' , marginLeft:"150px" }}>
         <Button  type='submit' variant="contained" color="primary" onClick={verifyUser}>
           Entrar
         </Button>

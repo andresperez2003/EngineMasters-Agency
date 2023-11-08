@@ -1,5 +1,7 @@
 const authController = require("../controllers/auth");
 
+const ensureAuth= require("../middlewares/authenticatedValidation")
+
 const express = require("express");
 const router = express.Router();
 
@@ -7,7 +9,7 @@ const router = express.Router();
 
 router.post('/signin', authController.signin);
 router.post('/login', authController.login);
-router.get('/:id', authController.getMe);
+router.get('/get-me', ensureAuth, authController.getMe);
 router.get('/activatedAccount/:id', authController.activatedAccount)
 
 

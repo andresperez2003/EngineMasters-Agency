@@ -26,13 +26,7 @@ const RegisterUser = () => {
         p: 4,
     };
     useEffect(() => {
-
     }, []);
-
-
-
-
-
 
     const register = (e) => {
         setsubmitUser(true)
@@ -49,28 +43,19 @@ const RegisterUser = () => {
                 return response.json();
             })
             .then((data) => {
+                console.log(data.message)
                 if (data.message != 'OK') {
                     setMessageError("Error")
                     setIsError(true)
-                    return
                 } else {
-                    window.location.href = 'http://localhost:3000/'
+                    console.log('Registro exitoso:', data);
+                    window.location.href = 'http://localhost:3000/login';
                 }
-
-                console.log('Registro exitoso:', data);
-                localStorage.setItem('token', data.access)
-
                 /* indow.location.href = 'http://localhost:3000/dashboard'; */
-
             })
             .catch((error) => {
                 console.error('Error al crear el post:', error);
-
             });
-
-
-
-
     }
 
     const handleInputChange = (e) => {
@@ -79,7 +64,6 @@ const RegisterUser = () => {
             ...formUser,
             [name]: value,
         });
-        console.log(formUser)
     };
 
     const handlePoliticas = (event) => {
@@ -97,7 +81,6 @@ const RegisterUser = () => {
                 <h2 id="modal-title" style={{ marginBottom: "40px" }}>Register</h2>
                 <form>
                     <div >
-
                         <div>
                             <Grid container spacing={2} display={'flex'}>
                                 <Grid item xs={6} >
@@ -119,12 +102,8 @@ const RegisterUser = () => {
                                     <Checkbox onChange={handlePoliticas} />Autorizo el tratamiento de mis datos personales de acuerdo con los términos establecidos en la <a href="/politicas-datos" name='politicas' onChange={handleInputChange} >POLITICA DE TRATAMIENTO DE DATOS</a>
                                 </Grid>
                             </Grid>
-
                         </div>
-
-
                     </div>
-
                     <div style={{ marginTop: '25px', marginLeft: "150px" }}>
                         <Button type='submit' variant="contained" color="primary" onClick={register}>
                             Registrarse

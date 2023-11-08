@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { images } from '../../assets';
 import { AppBar, Button, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import "./enginemasters.scss";
+
 
 
 import {
@@ -11,7 +12,6 @@ import {
   Routes,
   Link
 } from 'react-router-dom';
-import LoginUser from '../login/LoginUser';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -28,11 +28,9 @@ const style = {
 
 
 export const EngineMasters = () => {
-
-
   const [open, setOpen] = useState(false);
-
-  const [logIn, setLogIn] = useState(false)
+  const [data, setData] = useState(null);
+  const [register, setRegister] = useState(false)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -43,13 +41,39 @@ export const EngineMasters = () => {
   };
 
   const logout = () => {
-    setLogIn(false)
+    setRegister(false)
     localStorage.removeItem('token')
     window.location.reload();
   }
-
+  
   const token = localStorage.getItem('token')
 
+
+  useEffect(() => {
+    console.log("La cookie es: " + token);
+
+    fetch('http://localhost:3100/api/v1/auth/get-me', {
+      method: 'GET',
+      cache: 'no-cache',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer: ' + token
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === 'Unauthorized' || token === null) {
+          console.log('Usuario no autenticado')
+        } else {
+          setData(data);
+          //window.location.reload();
+          console.log(data);
+        }
+
+      })
+      .catch((error) => console.log(error));
+  }, []);
   return (
     <div>
 
@@ -108,11 +132,17 @@ export const EngineMasters = () => {
             </Link>}
 
           </ListItem>
-          <ListItem button onClick={handleDrawerClose}>
-          <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
-              <ListItemText primary="Register" />
-          </Link>
+
+          <ListItem>
+            {setData.rol == "Administrador" ?
+              <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
+                <ListItemText primary="Register" />
+              </Link> : false
+            }
           </ListItem>
+            
+          
+
         </List>
       </Drawer>
 

@@ -91,17 +91,17 @@ const login = async(req,res)=>{
     }
 }
 
-const getMe = async(req,res)=>{
+const getMe = async (req, res) => {
     try {
-        const {id} = req.params;
-        const response = await userModel.findById(id);
-        console.log(response)
-        //Obtener token del usuario
-        res.status(200).json(response)
-    } catch (error) {
-        res.status(400).json({message:error.message})
+        const { _id } = req.user._doc;
+        const userFind = await userModel.findById(_id).populate("rol");
+        console.log(userFind);
+
+        res.status(200).json(userFind);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
     }
-}
+};
 
 const activatedAccount = async (req,res)=>{
     try {

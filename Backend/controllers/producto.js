@@ -2,9 +2,12 @@ const ProductModel = require('../models/producto')
 const SuscribeModel = require('../models/suscrito')
 const multer = require('multer');
 const multerConfig = require('../utils/multerConfig')
+const { config } = require('dotenv');
+const nodemailer = require('nodemailer')
 
 const upload = multer(multerConfig).single('imagen')
 
+const request = require("request");
 
 
 
@@ -50,11 +53,14 @@ const updateProductById = async (req, res) =>{
         if((productDataEdit.descuento!=producto.descuento && productDataEdit.descuento>producto.descuento && productDataEdit.descuento!=0)){
             console.log("entra")
             changeDiscount(producto)
+            sendEmail(producto)
         }
         if(req.file && req.file.filename){
-            newProduct.image = req.file.filename
+            console.log("entra 1")
+            productDataEdit.imagen = req.file.filename
         }else{
-            productDataEdit.image = producto.image
+            console.log("entra 2")
+            productDataEdit.imagen = producto.imagen
         }
         const response= await ProductModel.findByIdAndUpdate(id, productDataEdit)
         res.status(200).json({message: "Actualización exitosa"});
@@ -73,24 +79,68 @@ const deleteProductById = async (req, res) =>{
     }
 }
 const changeDiscount = async(res,req)=>{
-   
+    console.log("Entra Descuento")
         console.log(res)
         const allUsers = await SuscribeModel.find();
-        const accountSid = 'ACfa71e5f8290afd813cf7812ac20ea8fc';
-        const authToken = '981bb78866e729e97b3aeb7d88e2cd5c';
-        const client = require('twilio')(accountSid, authToken);
         allUsers.forEach(user => {
-            console.log(user)
-            client.messages
-            .create({
-                body: `Hola ${user.name} , el producto ${res.nombre} tiene un descuento del ${res.descuento*100}%, nuevo precio: $${res.precio-(res.precio*res.descuento)}`,
-                from: 'whatsapp:+14155238886',
-                to: `whatsapp:+57${user.phone}`
-            })
-            .then(message => console.log(message.sid))
+            var options = {
+                method: 'POST',
+                url: 'https://api.ultramsg.com/instance67860/messages/chat',
+                headers: { 'content-type': ' application/x-www-form-urlencoded' },
+                form: {
+                    "token": process.env.WHATSAPP_TOKEN,
+                    "to": `+57${user.phone}`,
+                    "body": `EngineMasters Agency \nLe informamos que nuestro producto ${res.nombre} tiene un descuento del ${res.descuento}%\nPara comprar ingrese a: www.engineMasters-agency.com
+                    `
+                }
+            };
+            request(options, function (error, response, body) {
+                if (error) throw new Error(error);
+                console.log(body);
+            });
         });
+        };
 
-}
+        const sendEmail = async(res,req)=>{
+            contraseña =  process.env.CONTRASENA
+            correo = process.env.CORREO
+            console.log(correo)
+            console.log(contraseña)
+            const allUsers = await SuscribeModel.find();
+            allUsers.forEach((user)=>{
+                const config = {
+                    service: "gmail",
+                    auth: {
+                      user: correo,
+                      pass: contraseña,
+                    },
+                };
+            
+                const mensaje ={
+                    from :correo,
+                    to:user.email,
+                    subject: "Correo de pruebas",
+                    html:`EngineMasters Agency \nLe informamos que nuestro producto ${res.nombre} tiene un descuento del ${res.descuento}%\nPara comprar ingrese a: <a href='http://localhost:3000/'>www.engineMasters-agency.com<a>
+                    `
+                }
+                  const transport = nodemailer.createTransport(config)
+            
+                  transport.sendMail(mensaje, (error, info) => {
+                    if (error) {
+                      console.log('Error al enviar el correo:', error);
+                    } else {
+                      console.log('Correo enviado:', info.response);    
+                    }
+                  });
+            
+             
+            })
+        
+        
+        
+        }   
+
+
 
 
 module.exports={

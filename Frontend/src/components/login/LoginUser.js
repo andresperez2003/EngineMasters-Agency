@@ -53,12 +53,11 @@ const LoginUser = () => {
                 return
             }else{
                 window.location.href= 'http://localhost:3000/'
+                    
+                console.log('Ingreso exitoso:', data);
+                localStorage.setItem('token', data.access )
             }
 
-            console.log('Ingreso exitoso:', data);
-            localStorage.setItem('token', data.access )
-
-            /* indow.location.href = 'http://localhost:3000/dashboard'; */
   
           })
           .catch((error) => {

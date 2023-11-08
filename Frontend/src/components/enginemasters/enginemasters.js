@@ -124,9 +124,9 @@ export const EngineMasters = () => {
           </ListItem>
           <div style={{ flexGrow: 1 }}></div>
           <ListItem button onClick={handleDrawerClose}>
-              <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
+            { !data ? <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/register">
                 <ListItemText primary="Register" />
-              </Link> 
+              </Link> : false }
           </ListItem>
           <ListItem button onClick={handleDrawerClose}>
             {token ? <Link style={{ textDecoration: 'none', color: '#FFF' }} onClick={logout}>
